@@ -7,10 +7,11 @@ var app = express();
 
 // cargar rutas
 
-//var user_routes = require('./routes/user');
+var user_routes = require('./routes/user');
 
-
+// create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({extended:false}));
+// create application/json parser
 app.use(bodyParser.json());
 
 // configurar cabeceras http
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 });
 
 //rutas base
-//app.use('/api', user_routes);
+app.use('/api', user_routes);
 
 
 
