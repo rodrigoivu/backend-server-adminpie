@@ -11,9 +11,9 @@ var rolesValidos = {
 var UserSchema = new Schema({
 
 	name: { type: String, required: [true,'El nombre es necesario']},
-	surname: { type: String, required: false},
 	email: { type: String, unique: true, required: [true,'El correo es necesario']},
 	password: { type: String, required: [true,'La contraseña es necesaria']},
+	surname: { type: String, required: false},
 	image: { type: String, required: false},
 	role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos}
 

@@ -14,8 +14,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 // create application/json parser
 app.use(bodyParser.json());
 
-// configurar cabeceras http
-
+// CORS configurar cabeceras http
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin','*'); //permite el acceso a todos los dominios, a las apis
 	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-Whith, Content-Type, Accept,Access-Control-Allow-Request-Method');
