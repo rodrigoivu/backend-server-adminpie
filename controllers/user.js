@@ -5,7 +5,11 @@
  var bcrypt = require('bcryptjs');
  var User = require('../models/user');
  var jwt = require('../services/jwt');
+ var menu = require('../controllers/menu')
 
+//================================================
+// LOGIN
+//================================================
 function loginUser(req,res){
 	var params = req.body;
 
@@ -27,7 +31,8 @@ function loginUser(req,res){
 						res.status(200).send({
 						id:	user._id,
 						user: user,	
-						token: jwt.createToken(user)
+						token: jwt.createToken(user),
+						ROUTES: menu.obtenerMenu( user.role )
 					});
 					}else{
 						res.status(200).send({user});
@@ -40,6 +45,38 @@ function loginUser(req,res){
 		}
 	});
 }
+
+//================================================
+// MOSTRAR TODOS LOS USUARIOS PAGINADOS
+//================================================
+function listUsers(req,res){
+
+	var desde = req.query.desde || 0;
+	desde= Number(desde);
+
+	User.find({},'name email image role')
+	   .skip(desde)
+	   .limit(10)	
+	   .exec(
+	   		(err, usuarios) => {
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando usuarios'});
+	   			}else{
+	   				User.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								users: usuarios,
+								total: conteo
+						});
+	   				});
+	   				
+	   			}
+	   		}
+	   	);
+}
+
+//================================================
+// CREAR UN USUARIO
+//================================================
 
 function saveUser(req,res){
 	var user = new User();
@@ -55,7 +92,7 @@ function saveUser(req,res){
 	}
 	
 	user.email = params.email;
-	user.role ='USER_ROLE';
+	user.role ='INITIAL_ROLE';
 	user.image = 'null';
 
 	if(params.password){
@@ -87,13 +124,17 @@ function saveUser(req,res){
 
 }
 
+//================================================
+// ACTUALIZAR UN USUARIO
+//================================================
+
 function updateUser(req,res){
 	var userId = req.params.id; // éste parámetro se pone en el url despues de /
 	var update = req.body;      // éstos parámetros vienen del x-www-form-urlencoded
 
-	 if(userId != req.user.sub){  // esto viene de la autorización por token
-		return res.status(500).send({message: 'No tienes permiso para actualizar este usuario'});
-	}
+	//  if(userId != req.user.sub){  // esto viene de la autorización por token
+	// 	return res.status(500).send({message: 'No tienes permiso para actualizar este usuario'});
+	// }
 
 	User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
 		if(err){
@@ -109,46 +150,9 @@ function updateUser(req,res){
 	});
 }
 
-// function uploadImage(req,res){
-// 	var userId =req.params.id;
-// 	if (!req.file) {
-//         console.log("No file received");
-//         res.status(400).send({message: 'Archivo no recibido...'});
-//         //  res.send({
-//         //   success: false
-//         // });
-    
-//     } else {
-//     	var nombreArchivo = req.file.filename;
-//         var file_ext=path.extname(req.file.originalname);
-
-//         if(file_ext == '.png' || file_ext == '.jpg' || file_ext == '.gif'){
-//         	// Actualizar nombre en base de datos
-// 			User.findByIdAndUpdate(userId, {image: nombreArchivo}, (err, userUpdated) => {
-//  				if(!userUpdated){
-// 					res.status(404).send({message: 'No se ha podido actualizar el usuario'});
-// 			    }else{
-// 			    	//Elimina imagen anterior
-// 			    	var pathViejo = './uploads/users/' + userUpdated.image;
-// 			    	if( fs.existsSync(pathViejo)){
-// 			    		fs.unlink( pathViejo , err =>{
-// 			    			if(err) return console.log(err);
-//                             console.log('file deleted successfully');
-// 			    		});
-// 			    	}
-// 			    	userUpdated.password=':)'; //esconder password
-// 				    res.status(200).send({ user: userUpdated, image: nombreArchivo });
-// 				  }
-// 			});
-
-//         }else{
-//         	res.status(400).send({message: 'Extención del archivo no válida'});
-//         }
-//         //  res.send({
-//         //   success: true,
-//         // });
-//     }
-// }
+//================================================
+// CARGAR IMAGEN
+//================================================
 
 function uploadImage(req,res){
 	var userId =req.params.id;
@@ -207,6 +211,10 @@ function uploadImage(req,res){
 	}
 }
 
+//================================================
+// OBTENER IMAGEN
+//================================================
+
 function getImageFile(req,res){
 	var imageFile = req.params.imageFile;
 	//var path_file = './uploads/users/'+imageFile;
@@ -229,6 +237,10 @@ function getImageFile(req,res){
 	// });
 }
 
+//================================================
+// ELIMINAR USUARIO
+//================================================
+
 function deleteUser(req,res){
 	var userId = req.params.id; // éste parámetro se pone en el url despues de /
 	User.findByIdAndRemove(userId, (err, userRemoved) => {
@@ -246,6 +258,7 @@ function deleteUser(req,res){
 
 module.exports = {
 	loginUser,
+	listUsers,
 	saveUser,
 	updateUser,
 	uploadImage,

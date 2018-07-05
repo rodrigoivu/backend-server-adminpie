@@ -1,47 +1,19 @@
 'use strict'
 
-
-// var jwt = require ('jwt-simple');
  var jwt = require ('jsonwebtoken');
  var moment = require('moment');
  var secret = 'clave_secreta_adminpie';
 
-
-// exports.ensureAuth = function(req, res, next){
-// 	if(!req.headers.authorization){
-// 		return res.status(403).send({message: 'La petición no tiene la cabecera de autenticación'})
-// 	}
-
-// 	var token = req.headers.authorization.replace(/['"]+/g,'');
-
-// 	try{
-// 		var payload = jwt.decode(token, secret);
-
-// 		if(payload.exp <= moment().unix()){
-
-// 			return res.status(401).send({messsage:'El token ha expirado'});
-// 		}
-
-// 	}catch(ex){
-// 		//console.log(ex);
-// 		return res.status(404).send({messsage:'Token no válido'});
-// 	}
-
-// 	req.user = payload;
-
-// 	next();
-
-// };
+//================================================
+// Verificar token
+//================================================
 
  exports.ensureAuth = function(req, res, next){
-// 	if(!req.headers.authorization){
-// 		return res.status(403).send({message: 'La petición no tiene la cabecera de autenticación'})
-// 	}
 
- 	var token = req.query.token;
+ 	var token = req.query.token;  //viene del query ?token= en la url
  	jwt.verify( token, secret, (err, decoded) => {
  			if(err){
- 				return res.status(404).send({messsage:'Token no válido'});
+ 				return res.status(401).send({messsage:'Token no válido'});
  			}
  			if(decoded.exp <= moment().unix()){
 				return res.status(401).send({messsage:'El token ha expirado'});
@@ -52,21 +24,100 @@
  	        next();
  	});
 
-// 	try{
-// 		var payload = jwt.decode(token, secret);
+ }
 
-// 		if(payload.exp <= moment().unix()){
+//================================================
+// Verificar ADMIN
+//================================================
 
-// 			return res.status(401).send({messsage:'El token ha expirado'});
-// 		}
+ exports.ensureAdmin = function(req, res, next){
 
-// 	}catch(ex){
-// 		//console.log(ex);
-// 		return res.status(404).send({messsage:'Token no válido'});
-// 	}
+ 	var usuario = req.user;
 
- 	// req.user = payload;
+ 	if ( usuario.role === 'ADMIN_ROLE'){
+ 		next();
+ 		return;
+ 	} else {
+  		return res.status(404).send({messsage:'Token no válido - No es administrador'});
+ 	}
+ }
 
- 	// next();
+//================================================
+// Verificar ADMIN o MSIMO USUARIO
+//================================================
 
- };
+ exports.ensureAdminIgualUsuario = function(req, res, next){
+
+ 	var usuario = req.user; // viene del decode del token
+ 	var id = req.params.id; // viene del parametro :id, que se pone en la url.
+
+ 	if ( usuario.role === 'ADMIN_ROLE' || req.user.sub === id ){
+ 		next();
+ 		return;
+ 	} else {
+  		return res.status(404).send({messsage:'Token no válido - No es administrador - No es el mismo usuario' });
+ 	}
+ }
+
+//================================================
+// Verificar ADMIN o USUARIO USER
+//================================================
+
+ exports.ensureAdminUser = function(req, res, next){
+
+ 	var usuario = req.user; // viene del decode del token
+ 	
+ 	if ( usuario.role === 'ADMIN_ROLE' || usuario.role === 'USER_ROLE' ){
+ 		next();
+ 		return;
+ 	} else {
+  		return res.status(404).send({messsage:'Token no válido - No es administrador - No está autorizado' });
+ 	}
+ }
+
+//================================================
+// Verificar ADMIN o USUARIO MEDICAL
+//================================================
+
+ exports.ensureAdminMedical = function(req, res, next){
+
+ 	var usuario = req.user; // viene del decode del token
+ 	
+ 	if ( usuario.role === 'ADMIN_ROLE' || usuario.role === 'MEDICAL_ROLE' ){
+ 		next();
+ 		return;
+ 	} else {
+  		return res.status(404).send({messsage:'Token no válido - No es administrador - No está autorizado' });
+ 	}
+ }
+ //================================================
+// Verificar ADMIN o USUARIO MEDICAL o USUARIO USER
+//================================================
+
+ exports.ensureAdminMedicalUser = function(req, res, next){
+
+ 	var usuario = req.user; // viene del decode del token
+ 	
+ 	if ( usuario.role === 'ADMIN_ROLE' || usuario.role === 'MEDICAL_ROLE' || usuario.role === 'USER_ROLE' ){
+ 		next();
+ 		return;
+ 	} else {
+  		return res.status(404).send({messsage:'Token no válido - No es administrador - No está autorizado' });
+ 	}
+ }
+
+//================================================
+// Verificar ADMIN o USUARIO PESQUISA
+//================================================
+
+ exports.ensureAdminPesquisa = function(req, res, next){
+
+ 	var usuario = req.user; // viene del decode del token
+ 	
+ 	if ( usuario.role === 'ADMIN_ROLE' || usuario.role === 'PESQUISA_ROLE' ){
+ 		next();
+ 		return;
+ 	} else {
+  		return res.status(404).send({messsage:'Token no válido - No es administrador - No está autorizado' });
+ 	}
+ }
