@@ -16,5 +16,5 @@ var md_upload = multipart({ uploadDir: './uploads/users'});
  api.put('/upload-image-user/:id',[md_auth.ensureAuth,md_auth.ensureAdminIgualUsuario, md_upload],UserController.uploadImage);
  api.get('/get-image-user/:imageFile',UserController.getImageFile);
  api.delete('/remove-user/:id',[md_auth.ensureAuth,md_auth.ensureAdmin], UserController.deleteUser);
-
+ 
 module.exports = api;

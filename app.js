@@ -8,6 +8,7 @@ var app = express();
 // cargar rutas
 
 var user_routes = require('./routes/user');
+var busqueda_routes = require('./routes/busqueda');
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -26,7 +27,7 @@ app.use((req, res, next) => {
 
 //rutas base
 app.use('/api', user_routes);
-
+app.use('/api', busqueda_routes);
 
 
 module.exports = app;

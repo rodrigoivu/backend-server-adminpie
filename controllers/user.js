@@ -88,12 +88,17 @@ function saveUser(req,res){
 	if (params.surname){
 		user.surname = params.surname;
 	}else{
-		user.surname = 'null';
+		user.surname = null;
+	}
+	if (params.image){
+		user.image = params.image;
+	}else{
+		user.image = null;
 	}
 	
 	user.email = params.email;
 	user.role ='INITIAL_ROLE';
-	user.image = 'null';
+	
 
 	if(params.password){
 		// Encriptar contraseña 
