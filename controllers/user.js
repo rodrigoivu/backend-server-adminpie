@@ -7,6 +7,17 @@
  var jwt = require('../services/jwt');
  var menu = require('../controllers/menu')
 
+ //================================================
+// RENUEVA TOKEN
+//================================================
+function renuevaToken(req,res){
+    var token=jwt.createToken(req.user);
+	res.status(200).send({
+		token: token
+	});
+
+}
+
 //================================================
 // LOGIN
 //================================================
@@ -108,7 +119,10 @@ function saveUser(req,res){
 				//Guardar el usuario
 				user.save((err, userStored) => {
 					if(err){
-						res.status(500).send({message: 'Error al guardar el usuario'});
+						res.status(500).send({
+							error: err,
+							message: 'Error al guardar el usuario'
+						});
 					}else{
 						if(!userStored){
 							res.status(404).send({message: 'No se ha registrado el usuario'});
@@ -268,7 +282,8 @@ module.exports = {
 	updateUser,
 	uploadImage,
 	getImageFile,
-	deleteUser
+	deleteUser,
+	renuevaToken
 };
 
 // }
