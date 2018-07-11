@@ -155,7 +155,7 @@ function updateUser(req,res){
 	// 	return res.status(500).send({message: 'No tienes permiso para actualizar este usuario'});
 	// }
 
-	User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
+	User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
 		if(err){
 			res.status(500).send({message: 'Error al actualizar el usuario'});
 		}else{

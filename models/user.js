@@ -4,7 +4,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 var rolesValidos = {
-	values: ['ADMIN_ROLE', 'USER_ROLE', 'INITIAL_ROLE', 'MEDICAL_ROLE', 'PESQUISA_ROLE'],
+	values: ['ADMIN_ROLE', 'USER_ROLE', 'INITIAL_ROLE', 'PROFESIONAL_ROLE', 'PESQUISA_ROLE'],
 	message: '{VALUE} no es un rol permitido'
 };
 

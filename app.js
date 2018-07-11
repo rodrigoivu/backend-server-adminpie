@@ -9,6 +9,7 @@ var app = express();
 
 var user_routes = require('./routes/user');
 var busqueda_routes = require('./routes/busqueda');
+var profesional_routes = require('./routes/profesional');
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 //rutas base
 app.use('/api', user_routes);
 app.use('/api', busqueda_routes);
+app.use('/api', profesional_routes);
 
 
 module.exports = app;
