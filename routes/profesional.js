@@ -14,6 +14,7 @@ var md_auth = require('../middlewares/authenticated');
  api.post('/crear-profesional', ProfesionalController.saveProfesional);
  api.put('/update-profesional/:id', ProfesionalController.updateProfesional);
  api.get('/profesionales', ProfesionalController.listProfesionales);
+ api.delete('/remove-profesional/:id', ProfesionalController.deleteProfesional);
 
  
 module.exports = api;

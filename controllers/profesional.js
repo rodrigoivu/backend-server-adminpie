@@ -20,8 +20,8 @@ function saveProfesional(req,res){
 	if (params.profesion !=null){
 	profesional.profesion = params.profesion;
 	}
-	var Dias =[];
-	profesional.dias = Dias;	
+	var disponiblesemana =[];
+	profesional.horaSemana = disponiblesemana;	
 
 	if( profesional.user !=null ){
 				//Guardar profesional
@@ -52,7 +52,7 @@ function saveProfesional(req,res){
 
 function updateProfesional(req,res){
 	
-	var userId = req.params.id; // éste parámetro se pone en el url despues de /
+	var userId = req.params.id; // éste parámetro se pone en el url despues de OJO se busca por el ID de Usuario No de Profesional
 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
   
 	Profesional.findOneAndUpdate({user: userId}, params, { new: true }, (err, profesionalUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
@@ -61,7 +61,9 @@ function updateProfesional(req,res){
 								error: err	});
 		}else{
 			if(!profesionalUpdated){
-				res.status(404).send({message: 'No se ha podido actualizar el profesional'});
+				res.status(404).send({
+					message: 'No encuentra el profesional asociado al Usuario Id',
+			    });
 			}else{
 				res.status(200).send({profesional: profesionalUpdated });
 			}
@@ -78,26 +80,26 @@ function listProfesionales(req,res){
 	desde= Number(desde);
 
 	Profesional.find({})
-	   .populate('user', 'name email image role')
+	   .populate('user', '_id name email image')
 	   .skip(desde)
 	   .limit(10)	
 	   .exec(
 	   		(err, profesionales) => {
 
-	   			var pro=[];
-	   			profesionales.forEach((item,index) =>{
-	   				if(item.user.role == 'PROFESIONAL_ROLE'){
-	   					pro.push(item);
-	   				}
-	   			});
+	   			// var pro=[];
+	   			// profesionales.forEach((item,index) =>{
+	   			// 	if(item.user.role == 'PROFESIONAL_ROLE'){
+	   			// 		pro.push(item);
+	   			// 	}
+	   			// });
 	   				
 	   			if (err){
 	   				res.status(500).send({message: 'Error cargando profesionales'});
 	   			}else{
 	   				Profesional.count({}, (err,conteo) =>{
 	   					res.status(200).send({
-								profesionales: pro,
-								total: pro.length
+								profesionales: profesionales,
+								total: conteo
 						});
 	   				});
 	   				
@@ -106,9 +108,28 @@ function listProfesionales(req,res){
 	   	);
 }
 
+//================================================
+// ELIMINAR PROFESIONAL
+//================================================
+
+function deleteProfesional(req,res){
+	var userId = req.params.id; // éste parámetro se pone en el url despues de /
+	Profesional.findOneAndRemove({user: userId}, (err, profesionalRemoved) => {
+		if(err){
+			res.status(500).send({message: 'Error al borrar profesional'});
+		}else{
+			if(!profesionalRemoved){
+				res.status(400).send({message: 'Este usuario no tine perfil de Profesional'});
+			}else{
+				res.status(200).send({user: profesionalRemoved});
+			}
+		}
+	});
+}
 
 module.exports = {
 	saveProfesional,
 	updateProfesional,
-	listProfesionales
+	listProfesionales,
+	deleteProfesional
 };
