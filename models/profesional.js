@@ -36,11 +36,23 @@ var HoraSemanal = new Schema({
   hora: String
 });
 
+var hora = new Schema({
+  nombre: String,
+  hora: String,
+  valor: Boolean
+});
+
+var horaDia = new Schema({
+  dia: String,
+  horas: [ hora ]
+});
+
 var ProfesionalSchema = new Schema({
 
 	user: { type: Schema.Types.ObjectId,ref:'User',unique: true ,required: [true,'El usario es necesario']},  
 	profesion: { type: String, required: true, default: 'GENERAL', enum: profesionesValidas},
-	horaSemana: [ HoraSemanal ]
+	horaSemana: [ HoraSemanal ],
+  horasDia:[ horaDia ]
 },{ collection: 'profesionales'}); // esto es para evitar que se grave como porfesionals
 
 ProfesionalSchema.plugin( uniqueValidator, { message: '{PATH} debe ser único'}) //afecta a los campos con unique: true. PATH toma el valor del campo correspondiente

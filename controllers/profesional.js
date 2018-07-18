@@ -20,8 +20,9 @@ function saveProfesional(req,res){
 	if (params.profesion !=null){
 	profesional.profesion = params.profesion;
 	}
-	var disponiblesemana =[];
-	profesional.horaSemana = disponiblesemana;	
+	//var disponiblesemana =[];
+	profesional.horaSemana = [];
+	profesional.horasDia = [];	
 
 	if( profesional.user !=null ){
 				//Guardar profesional
