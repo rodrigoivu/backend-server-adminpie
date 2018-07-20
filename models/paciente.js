@@ -9,7 +9,7 @@ var PacienteSchema = new Schema({
 
 	name: { type: String, required: [true,'El nombre es necesario']},
 	email: { type: String, required: false },
-	rutpaciente: { type: String, required: false },
+	rut: { type: String, required: false },
 	direccion: { type: String, required: false },
 	fijo: { type: String, required: false },
 	celular: { type: String, required: false },

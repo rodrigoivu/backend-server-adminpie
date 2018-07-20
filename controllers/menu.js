@@ -63,21 +63,59 @@ function incorporaMenuPrincipal(){
     )
 }
 
+// function incorporaMenuProfesionales(){
+//     menu.push(
+//         {
+//         path: '/pages/profesionales',   //2
+//         title: 'Profesionales',             // menu title
+//         icon: 'mdi mdi-human-male-female',      // menu icon
+//         class: '',                    // additional classes
+//         label: '',
+//         labelClass: '',
+//         extralink: false,
+//         submenu: []                   // submenu items if available
+//         }
+
+//     );
+// }
+
 function incorporaMenuProfesionales(){
     menu.push(
         {
-        path: '/pages/profesionales',   //2
+        path: '',   //2
         title: 'Profesionales',             // menu title
         icon: 'mdi mdi-human-male-female',      // menu icon
-        class: '',                    // additional classes
-        label: '',
-        labelClass: '',
+        class: 'has-arrow',                    // additional classes
+        label: '2',
+        labelClass: 'label label-rouded label-themecolor pull-right',
         extralink: false,
-        submenu: []                   // submenu items if available
+        submenu: [
+                    {
+                        path: '/pages/profesionales',
+                        title: 'Lista Profesionales',
+                        icon: '',
+                        class: '',
+                        label: '',
+                        labelClass: '',
+                        extralink: false,
+                        submenu: []
+                    },
+                    {
+                        path: '/pages/bloqueogeneral',
+                        title: 'Bloqueo dias General',
+                        icon: '',
+                        class: '',
+                        label: '',
+                        labelClass: '',
+                        extralink: false,
+                        submenu: []
+                    }
+                ]                   // submenu items if available
         }
 
     );
 }
+
 function incorporaMenuReservas(){
     menu.push(
         {
