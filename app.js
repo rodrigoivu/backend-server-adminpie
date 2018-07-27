@@ -12,6 +12,7 @@ var busqueda_routes = require('./routes/busqueda');
 var profesional_routes = require('./routes/profesional');
 var paciente_routes = require('./routes/paciente');
 var reserva_routes = require('./routes/reserva');
+var bloqueo_routes = require('./routes/bloqueo');
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -34,5 +35,6 @@ app.use('/api', busqueda_routes);
 app.use('/api', profesional_routes);
 app.use('/api', paciente_routes);
 app.use('/api', reserva_routes);
+app.use('/api', bloqueo_routes);
 
 module.exports = app;
