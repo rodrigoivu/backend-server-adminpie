@@ -68,12 +68,15 @@ function listReservas(req,res){
 function listReservasPorFechaUsuario(req,res){
     var userId = req.params.id_user;
 	var fechaSeleccionada=req.query.fecha || '0-0-000';
-	var regexUserId = new RegExp(userId, 'i');//no finciona esto del regex en este caso
-    var regexFecha = new RegExp(fechaSeleccionada, 'i'); //no finciona esto del regex en este caso
+	var repiteDia=req.query.repitedia;
+	//var repiteAno=req.query.repiteano;
+	// var regexUserId = new RegExp(userId, 'i');//no funciona esto del regex en este caso
+    // var regexFecha = new RegExp(fechaSeleccionada, 'i'); //no finciona esto del regex en este caso
     
     
-	Reserva.find({})
-	   .and([ {'user': userId}, {'fecha': fechaSeleccionada} ])
+	Reserva.find({'user': userId})
+	   //.and([ {'user': userId}, {'fecha': fechaSeleccionada} ])  
+	   .or([ {'repiteDia': repiteDia}, {'fecha': fechaSeleccionada} ])  // est es para bloquear la reserva repitiendo el dia
 	   .populate('paciente', 'name')
 	   .exec(
 	   		(err, reservas) => {

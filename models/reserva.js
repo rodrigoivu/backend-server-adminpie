@@ -21,8 +21,9 @@ var ReservaSchema = new Schema({
 	poshora:[ PosHora ],
 	fecharegistro: { type: String, required: false},
 	estado: { type: String, required: false, default: 'VACIO', enum: estadosValidos},
-	confirmada: { type: String, required: false}
-
+	confirmada: { type: String, required: false},
+	repiteDia:{ type: Number,required: false},  //valores del 0 al 6 de domingo a sábado, si es 10 es porque no se repite
+	repiteAno:{ type: Number,required: false}
 });
 
 module.exports = mongoose.model('Reserva', ReservaSchema);
