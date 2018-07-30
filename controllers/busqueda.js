@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var Paciente = require('../models/paciente');
+var Profesional = require('../models/profesional');
 
 
 //================================================
@@ -19,6 +20,9 @@ function findCollection(req,res){
 		case 'pacientes':
 			promesa = buscarPacientes( busqueda, regex );
 			break;	
+		case 'profesionales':
+			promesa = buscarProfesionales( busqueda, regex );
+			break;		
 		default:
 			res.status(400).send({ message: 'No existe es tipo de collección' });
 	}
@@ -98,6 +102,23 @@ function buscarPacientes( busqueda, regex ){
 	   				reject('Error al cargar pacientes', err);	
 	   			}else{
 		   			resolve(pacientes);
+		   		}
+			});
+	});
+}
+
+function buscarProfesionales( busqueda, regex ){
+
+	return new Promise((resolve, reject) =>{
+
+		Profesional.find()
+		    .populate('user', '_id name email image')
+			.or([{ 'profesion': regex }]) // buscar en 2 registros al mismo tiempo
+			.exec((err, profesionales) => {
+				if (err){
+	   				reject('Error al cargar profesionales', err);	
+	   			}else{
+		   			resolve(profesionales);
 		   		}
 			});
 	});
