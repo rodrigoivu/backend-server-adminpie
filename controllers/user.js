@@ -135,10 +135,10 @@ function saveUser(req,res){
 					}
 				});
 			}else{
-				res.status(200).send({message: 'Rellena todos los campos'});
+				res.status(400).send({message: 'Rellena todos los campos'});
 			}
 	}else{
-		res.status(200).send({message: 'Introduce la contraseña'});
+		res.status(400).send({message: 'Introduce la contraseña'});
 	}
 
 }

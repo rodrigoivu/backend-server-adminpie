@@ -207,26 +207,26 @@ function incorporaMenuMantenimiento(){
         labelClass: 'label label-rouded label-themecolor pull-right',         // if label available
         extralink: false,
         submenu: [                                                        // submenus like single menu config
-            {
-                path: '/pages/crearpacientes',
-                title: 'Pacientes',
-                icon: '',
-                class: '',
-                label: '',
-                labelClass: '',
-                extralink: false,
-                submenu: []
-            },
-            {
-                path: '/pages/crearprofesionales',
-                title: 'Profesionales',
-                icon: '',
-                class: '',
-                label: '',
-                labelClass: '',
-                extralink: false,
-                submenu: []
-            },
+            // {
+            //     path: '/pages/crearpacientes',
+            //     title: 'Pacientes',
+            //     icon: '',
+            //     class: '',
+            //     label: '',
+            //     labelClass: '',
+            //     extralink: false,
+            //     submenu: []
+            // },
+            // {
+            //     path: '/pages/crearprofesionales',
+            //     title: 'Profesionales',
+            //     icon: '',
+            //     class: '',
+            //     label: '',
+            //     labelClass: '',
+            //     extralink: false,
+            //     submenu: []
+            // },
             {
                 path: '/pages/crearusuarios',
                 title: 'Usuarios',
@@ -236,27 +236,28 @@ function incorporaMenuMantenimiento(){
                 labelClass: '',
                 extralink: false,
                 submenu: []
-            },
-            {
-                path: '/pages/crearprofesion',
-                title: 'Profesión',
-                icon: '',
-                class: '',
-                label: '',
-                labelClass: '',
-                extralink: false,
-                submenu: []
-            },
-            {
-                path: '/pages/crearestablecimiento',
-                title: 'Establecimiento',
-                icon: '',
-                class: '',
-                label: '',
-                labelClass: '',
-                extralink: false,
-                submenu: []
             }
+            // ,
+            // {
+            //     path: '/pages/crearprofesion',
+            //     title: 'Profesión',
+            //     icon: '',
+            //     class: '',
+            //     label: '',
+            //     labelClass: '',
+            //     extralink: false,
+            //     submenu: []
+            // },
+            // {
+            //     path: '/pages/crearestablecimiento',
+            //     title: 'Establecimiento',
+            //     icon: '',
+            //     class: '',
+            //     label: '',
+            //     labelClass: '',
+            //     extralink: false,
+            //     submenu: []
+            // }
         ]
     }
     );

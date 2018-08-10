@@ -43,7 +43,7 @@ function saveProfesional(req,res){
 					}
 				});
 	}else{
-		res.status(200).send({message: 'User no indicado'});
+		res.status(400).send({message: 'User no indicado'});
 	}
 }
 

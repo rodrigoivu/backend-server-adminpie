@@ -28,7 +28,7 @@ function savePaciente(req,res){
 					}
 				});
 	}else{
-		res.status(200).send({message: 'Indicar Nombre de Paciente'});
+		res.status(400).send({message: 'Indicar Nombre de Paciente'});
 	}
 }
 

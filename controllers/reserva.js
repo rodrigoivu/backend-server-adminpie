@@ -28,7 +28,7 @@ function saveReserva(req,res){
 					}
 				});
 	}else{
-		res.status(200).send({message: 'Faltan Datos (Paciente, Usuario, Fecha, Hora, poshora)'});
+		res.status(400).send({message: 'Faltan Datos (Paciente, Usuario, Fecha, Hora, poshora)'});
 	}
 }
 

@@ -28,7 +28,7 @@ function saveBloqueo(req,res){
 					}
 				});
 	}else{
-		res.status(200).send({message: 'Indicar Datos de fechas y descripción'});
+		res.status(400).send({message: 'Indicar Datos de fechas y descripción'});
 	}
 }
 
