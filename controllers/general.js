@@ -35,25 +35,48 @@ var  general= new General(req.body);
 // ACTUALIZAR 
 //================================================
 
+// function updateGeneral(req,res){
+// 	var pacienteId = req.params.id; // éste parámetro se pone en el url despues 
+// 	var pacienteFecha = req.params.fecha; // éste parámetro se pone en el url despues 
+// 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
+  
+// 	General.findOneAndUpdate([{'paciente': pacienteId}, {'fecha': pacienteFecha}], params, { new: true }, (err, generalUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+// 		if(err){
+// 			res.status(500).send({message: 'Error al actualizar la ficha general',
+// 								error: err	});
+// 		}else{
+// 			if(!generalUpdated){
+// 				res.status(404).send({
+// 					message: 'No encuentra la ficha general asociado al paciente',
+// 			    });
+// 			}else{
+// 				res.status(200).send({general: generalUpdated });
+// 			}
+// 		}
+// 	});
+// }
+
 function updateGeneral(req,res){
 	var pacienteId = req.params.id; // éste parámetro se pone en el url despues 
 	var pacienteFecha = req.params.fecha; // éste parámetro se pone en el url despues 
 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
-  
-	General.findOneAndUpdate([{'paciente': pacienteId}, {'fecha': pacienteFecha}], params, { new: true }, (err, generalUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
-		if(err){
-			res.status(500).send({message: 'Error al actualizar la ficha general',
-								error: err	});
-		}else{
-			if(!generalUpdated){
-				res.status(404).send({
-					message: 'No encuentra la ficha general asociado al paciente',
-			    });
-			}else{
-				res.status(200).send({general: generalUpdated });
-			}
-		}
-	});
+
+	General.findOneAndUpdate({}, params, { new: true })
+				.and ([{'paciente': pacienteId}, {'fecha': pacienteFecha}])
+				.exec((err, generalUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+							if(err){
+								res.status(500).send({message: 'Error al actualizar la ficha general',
+													error: err	});
+							}else{
+								if(!generalUpdated){
+									res.status(404).send({
+										message: 'No encuentra la ficha general asociado al paciente',
+								    });
+								}else{
+									res.status(200).send({ general: generalUpdated });
+								}
+							}
+				});
 }
 
 //================================================
@@ -73,12 +96,12 @@ function pacienteGeneral(req,res){
 	   				res.status(500).send({message: 'Error cargando ficha General'});
 
 	   			}else{
-	   				General.count({}, (err,conteo) =>{
+	   				//General.count({}, (err,conteo) =>{
 	   					res.status(200).send({
 								general: general,
-								total: conteo
+								total: general.length
 						});
-	   				});
+	   				//});
 	   			}
 	   		}
 	   	);

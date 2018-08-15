@@ -35,27 +35,50 @@ function saveFonoaudiologia(req,res){
 // ACTUALIZAR 
 //================================================
 
+// function updateFonoaudiologia(req,res){
+// 	var pacienteId = req.params.id; // éste parámetro se pone en el url despues 
+// 	var pacienteFecha = req.params.fecha; // éste parámetro se pone en el url despues 
+// 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
+  	
+//   	console.log(pacienteFecha);
+// 	Fonoaudiologia.findOneAndUpdate([{'paciente': pacienteId}, {'fecha': pacienteFecha}], params, { new: true }, (err, fonoaudiologiaUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+// 		if(err){
+// 			res.status(500).send({message: 'Error al actualizar la ficha de Fonoaudiologia',
+// 								error: err	});
+// 		}else{
+// 			if(!fonoaudiologiaUpdated){
+// 				res.status(404).send({
+// 					message: 'No encuentra la ficha de Fonoaudiologia asociado al paciente',
+// 			    });
+// 			}else{
+// 				res.status(200).send({fonoaudiologia: fonoaudiologiaUpdated });
+// 			}
+// 		}
+// 	});
+// }
+
 function updateFonoaudiologia(req,res){
 	var pacienteId = req.params.id; // éste parámetro se pone en el url despues 
 	var pacienteFecha = req.params.fecha; // éste parámetro se pone en el url despues 
 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
-  
-	Fonoaudiologia.findOneAndUpdate([{'paciente': pacienteId}, {'fecha': pacienteFecha}], params, { new: true }, (err, fonoaudiologiaUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
-		if(err){
-			res.status(500).send({message: 'Error al actualizar la ficha de Fonoaudiologia',
-								error: err	});
-		}else{
-			if(!fonoaudiologiaUpdated){
-				res.status(404).send({
-					message: 'No encuentra la ficha de Fonoaudiologia asociado al paciente',
-			    });
-			}else{
-				res.status(200).send({fonoaudiologia: fonoaudiologiaUpdated });
-			}
-		}
-	});
-}
 
+	Fonoaudiologia.findOneAndUpdate({}, params, { new: true })
+				.and ([{'paciente': pacienteId}, {'fecha': pacienteFecha}])
+				.exec((err, fonoaudiologiaUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+							if(err){
+								res.status(500).send({message: 'Error al actualizar la ficha de Fonoaudiologia',
+													error: err	});
+							}else{
+								if(!fonoaudiologiaUpdated){
+									res.status(404).send({
+										message: 'No encuentra la ficha de Fonoaudiologia asociado al paciente',
+								    });
+								}else{
+									res.status(200).send({fonoaudiologia: fonoaudiologiaUpdated });
+								}
+							}
+				});
+}
 //================================================
 // MOSTRAR 
 //================================================
@@ -66,6 +89,7 @@ function pacienteFonoaudiologia(req,res){
 	Fonoaudiologia.find({'paciente': pacienteId})
 	   .populate('paciente', '_id name email rut')
 	   .populate('user', '_id name')
+	   .sort([['fecha', -1]])
 	   .exec(
 	   		(err, fonoaudiologia) => {
 	   				
@@ -73,16 +97,17 @@ function pacienteFonoaudiologia(req,res){
 	   				res.status(500).send({message: 'Error cargando ficha de Fonoaudiologia'});
 
 	   			}else{
-	   				Fonoaudiologia.count({}, (err,conteo) =>{
+	   				// Fonoaudiologia.count({}, (err,conteo) =>{
 	   					res.status(200).send({
 								fonoaudiologia: fonoaudiologia,
-								total: conteo
+								total: fonoaudiologia.length
 						});
-	   				});
+	   				// });
 	   			}
-	   		}
-	   	);
+	   		});
 }
+
+
 
 module.exports = {
 	saveFonoaudiologia,

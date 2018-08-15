@@ -36,25 +36,48 @@ var  terapeuta = new Terapeuta(req.body);
 // ACTUALIZAR 
 //================================================
 
+// function updateTerapeuta(req,res){
+// 	var pacienteId = req.params.id; // éste parámetro se pone en el url despues 
+// 	var pacienteFecha = req.params.fecha; // éste parámetro se pone en el url despues 
+// 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
+  
+// 	Terapeuta.findOneAndUpdate([{'paciente': pacienteId}, {'fecha': pacienteFecha}], params, { new: true }, (err, terapeutaUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+// 		if(err){
+// 			res.status(500).send({message: 'Error al actualizar la ficha de Terapeuta',
+// 								error: err	});
+// 		}else{
+// 			if(!terapeutaUpdated){
+// 				res.status(404).send({
+// 					message: 'No encuentra la ficha de Terapeuta asociado al paciente',
+// 			    });
+// 			}else{
+// 				res.status(200).send({terapeuta: terapeutaUpdated });
+// 			}
+// 		}
+// 	});
+// }
+
 function updateTerapeuta(req,res){
 	var pacienteId = req.params.id; // éste parámetro se pone en el url despues 
 	var pacienteFecha = req.params.fecha; // éste parámetro se pone en el url despues 
 	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
-  
-	Terapeuta.findOneAndUpdate([{'paciente': pacienteId}, {'fecha': pacienteFecha}], params, { new: true }, (err, terapeutaUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
-		if(err){
-			res.status(500).send({message: 'Error al actualizar la ficha de Terapeuta',
-								error: err	});
-		}else{
-			if(!terapeutaUpdated){
-				res.status(404).send({
-					message: 'No encuentra la ficha de Terapeuta asociado al paciente',
-			    });
-			}else{
-				res.status(200).send({terapeuta: terapeutaUpdated });
-			}
-		}
-	});
+
+	Terapeuta.findOneAndUpdate({}, params, { new: true })
+				.and ([{'paciente': pacienteId}, {'fecha': pacienteFecha}])
+				.exec((err, terapeutaUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+							if(err){
+								res.status(500).send({message: 'Error al actualizar la ficha de Terapeuta',
+													error: err	});
+							}else{
+								if(!terapeutaUpdated){
+									res.status(404).send({
+										message: 'No encuentra la ficha de Terapeuta asociado al paciente',
+								    });
+								}else{
+									res.status(200).send({terapeuta: terapeutaUpdated });
+								}
+							}
+				});
 }
 
 //================================================
@@ -74,12 +97,12 @@ function pacienteTerapeuta(req,res){
 	   				res.status(500).send({message: 'Error cargando ficha de Terapeuta'});
 
 	   			}else{
-	   				Terapeuta.count({}, (err,conteo) =>{
+	   				//Terapeuta.count({}, (err,conteo) =>{
 	   					res.status(200).send({
 								terapeuta: terapeuta,
-								total: conteo
+								total: terapeuta.length
 						});
-	   				});
+	   				//});
 	   			}
 	   		}
 	   	);
