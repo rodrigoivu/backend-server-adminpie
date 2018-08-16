@@ -89,6 +89,7 @@ function pacienteKinesiologia(req,res){
 	Kinesiologia.find({'paciente': pacienteId})
 	   .populate('paciente', '_id name email rut')
 	   .populate('user', '_id name')
+	   .sort([['fecha', -1]])
 	   .exec(
 	   		(err, kinesiologia) => {
 	   				

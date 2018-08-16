@@ -7,7 +7,7 @@ function obtenerMenu ( ROLE ){
        
     }
 
-    if ( ROLE === 'MEDICAL_ROLE'){
+    if ( ROLE === 'PROFESIONAL_ROLE'){
        
         incorporaMenuPacientes(); // ver lista, ver fichas y agregar
     }

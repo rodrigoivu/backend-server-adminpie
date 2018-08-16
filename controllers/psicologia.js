@@ -89,6 +89,7 @@ function pacientePsicologia(req,res){
 	Psicologia.find({'paciente': pacienteId})
 	   .populate('paciente', '_id name email rut')
 	   .populate('user', '_id name')
+	   .sort([['fecha', -1]])
 	   .exec(
 	   		(err, psicologia) => {
 	   				
