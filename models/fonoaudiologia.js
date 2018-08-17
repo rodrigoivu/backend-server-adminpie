@@ -36,7 +36,7 @@ var   prelinguisticas = new Schema({
   actividad29: Number,
   actividad30: Number
   
-});
+} ,{ _id : false });
 var   prearticulatorias = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -65,7 +65,7 @@ var   prearticulatorias = new Schema({
   actividad25: Number,
   actividad26: Number
   
-});
+},{ _id : false });
 var   psicolinguisticas = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -80,7 +80,7 @@ var   psicolinguisticas = new Schema({
   actividad11: Number,
   actividad12: Number
   
-});
+},{ _id : false });
 var   foneticoFonologico = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -157,7 +157,7 @@ var   foneticoFonologico = new Schema({
   actividad73: Number,
   actividad74: Number
   
-});
+},{ _id : false });
 var   semantico = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -188,7 +188,7 @@ var   semantico = new Schema({
   actividad27: Number,
   actividad28: Number
   
-});
+},{ _id : false });
 var   morfosintactico = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -216,7 +216,7 @@ var   morfosintactico = new Schema({
   actividad24: Number,
   actividad25: Number
   
-});
+},{ _id : false });
 var   pragmatico = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -247,7 +247,7 @@ var   pragmatico = new Schema({
   actividad27: Number,
   actividad28: Number
   
-});
+},{ _id : false });
 var   discursoNarrativo = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -258,7 +258,7 @@ var   discursoNarrativo = new Schema({
   actividad7: Number,
   actividad8: Number
   
-});
+},{ _id : false });
 var  socialComunicativa = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -268,7 +268,7 @@ var  socialComunicativa = new Schema({
   actividad6: Number,
   actividad7: Number
   
-});
+},{ _id : false });
 var FonoaudiologiaSchema = new Schema({
 
 	paciente: { type: Schema.Types.ObjectId,ref:'Paciente',required: [true,'El paciente es necesario']},

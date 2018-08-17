@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
-var NgbDate = new Schema({
-  day: Number,
-  month: Number,
-  year: Number
-});
+// var NgbDate = new Schema({
+//   day: Number,
+//   month: Number,
+//   year: Number
+// },{ _id : false });
 
 var antecedentesFamiliares = new Schema({
 	nombreMadre : String,
@@ -21,7 +21,7 @@ var antecedentesFamiliares = new Schema({
   	ocupacionPadre : String,
   	horarioTrabajoPadre : String,
   	descripcionFamiliar : String
-});
+},{ _id : false });
 var antecedentesSalud = new Schema({
 	tiempoGestion : String,
 	tipoParto : String,
@@ -32,7 +32,7 @@ var antecedentesSalud = new Schema({
 	enfermedadesPrePostNatal : String,
 	cuales : String,
 	observaciones : String
-});
+},{ _id : false });
 
 var historialClinico = new Schema({
 	enfermedadesFamiliares : String,
@@ -53,7 +53,7 @@ var historialClinico = new Schema({
 	cualesMedicamentos : String,
 	medicamentosEfectos : String,
 	diagnosticos : String
-});
+},{ _id : false });
 
 var desarrolloEvolutivo = new Schema({
 	edadSientaSolo : String,
@@ -68,7 +68,7 @@ var desarrolloEvolutivo = new Schema({
 	dibuja : Number,
 	escribe : Number,
 	corta : Number
-});
+},{ _id : false });
 
 var destrezasSocialesComunicativas = new Schema({
 	imtaDespedirAplaudir : Number,
@@ -80,7 +80,7 @@ var destrezasSocialesComunicativas = new Schema({
 	seComporta : Number,
 	reccionCorrrecta : Number
   
-});
+},{ _id : false });
 var comportamientoLudico = new Schema({
 	conQueJuega : String,
 	conQuienJuega : String,
@@ -88,7 +88,7 @@ var comportamientoLudico = new Schema({
 	actividadesInteres : String,
 	personalidad : String
   
-});
+},{ _id : false });
 var situacionSocial = new Schema({
 	personasFamilia : Number,
 	jefeFemenino : String,
@@ -97,14 +97,14 @@ var situacionSocial = new Schema({
 	ingresoMensual : Number,
 	ingresoPerCapita : Number
   
-});
+},{ _id : false });
 
 
 var AnamnesisSchema = new Schema({
 
 	paciente: { type: Schema.Types.ObjectId,ref:'Paciente',unique: true ,required: [true,'El paciente es necesario']},
 	user: { type: Schema.Types.ObjectId,ref:'User',unique: false ,required: [true,'El profesional es necesario']},
-	fecha: { type: NgbDate, required: [true,'La fecha es necesaria']},
+	fecha: { type: String, required: [true,'La fecha es necesario']},
 	antecedentesFamiliares: antecedentesFamiliares,
 	antecedentesSalud: antecedentesSalud,
 	historialClinico: historialClinico,

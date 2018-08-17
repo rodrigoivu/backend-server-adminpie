@@ -9,7 +9,7 @@ var establecerVinculo = new Schema({
   actividad2: Number,
   actividad3: Number
   
-});
+},{ _id : false });
 var capacidadesAdaptativas = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -17,7 +17,7 @@ var capacidadesAdaptativas = new Schema({
   actividad4: Number,
   actividad5: Number
   
-});
+},{ _id : false });
 var  autoconcepto = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -27,14 +27,14 @@ var  autoconcepto = new Schema({
   actividad6: Number,
   actividad7: Number,
   actividad8: Number
-});
+},{ _id : false });
 var labilidadEmocional = new Schema({
   actividad1: Number,
   actividad2: Number,
   actividad3: Number,
   actividad4: Number
   
-});
+},{ _id : false });
 
 
 var PsicologiaSchema = new Schema({

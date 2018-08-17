@@ -24,7 +24,7 @@ var  actividadesVidaDiaria = new Schema({
   actividad17: Number,
   actividad18: Number
   
-});
+},{ _id : false });
 var  actividadesInstrumentales = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -41,14 +41,14 @@ var  actividadesInstrumentales = new Schema({
   actividad13: Number,
   actividad14: Number
   
-});
+},{ _id : false });
 var  descansoSueno = new Schema({
   actividad1: Number,
   actividad2: Number,
   actividad3: Number,
   actividad4: Number
   
-});
+},{ _id : false });
 var  educacion = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -59,14 +59,14 @@ var  educacion = new Schema({
   actividad7: Number,
   actividad8: Number
   
-});
+},{ _id : false });
 var  ocio = new Schema({
   actividad1: Number,
   actividad2: Number,
   actividad3: Number,
   actividad4: Number
   
-});
+},{ _id : false });
 var  juego = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -105,7 +105,7 @@ var  juego = new Schema({
   actividad35: Number,
   actividad36: Number
   
-});
+},{ _id : false });
 var  participacionSocial = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -130,7 +130,7 @@ var  participacionSocial = new Schema({
   actividad21: Number,
   actividad22: Number
   
-});
+},{ _id : false });
 var  transversal = new Schema({
   actividad1: Number,
   actividad2: Number,
@@ -138,7 +138,7 @@ var  transversal = new Schema({
   actividad4: Number,
   actividad5: Number
   
-});
+},{ _id : false });
 
 var TerapeutaSchema = new Schema({
 

@@ -9,7 +9,7 @@ var medicaGeneral = new Schema({
 	tartamiento: String,
 	diagnosticos: String,
 	medicamentos: String
-});
+},{ _id : false });
 
 var GeneralSchema = new Schema({
 

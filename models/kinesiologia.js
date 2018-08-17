@@ -42,7 +42,7 @@ var  estabilidadDesplazamiento = new Schema({
 	 objetivoEsp35: Number,
 	 objetivoEsp36: Number,
 	 objetivoEsp37: Number,
-});
+},{ _id : false });
 
 var  coordinacionDinamica = new Schema({
 	 objetivoEsp1: Number,
@@ -73,7 +73,7 @@ var  coordinacionDinamica = new Schema({
 	 objetivoEsp26: Number,
 	 objetivoEsp27: Number,
 	 objetivoEsp28: Number
-});
+},{ _id : false });
 
 var  conductasPsicomotoras = new Schema({
 	 objetivoEsp1: Number,
@@ -116,7 +116,7 @@ var  conductasPsicomotoras = new Schema({
 	 objetivoEsp38: Number,
 	 objetivoEsp39: Number
 	
-});
+},{ _id : false });
 var  alineacionPostural = new Schema({
 	 objetivoEsp1: Number,
 	 objetivoEsp2: Number,
@@ -154,7 +154,7 @@ var  alineacionPostural = new Schema({
 	 objetivoEsp34: Number,
 	 objetivoEsp35: Number
 	
-});
+},{ _id : false });
 
 var KinesiologiaSchema = new Schema({
 

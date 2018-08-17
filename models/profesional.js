@@ -34,18 +34,18 @@ var HoraSemanal = new Schema({
   nombreSa: String,
   nombreDo: String,
   hora: String
-});
+},{ _id : false });
 
 var hora = new Schema({
   nombre: String,
   hora: String,
   valor: Boolean
-});
+},{ _id : false });
 
 var horaDia = new Schema({
   dia: String,
   horas: [ hora ]
-});
+},{ _id : false });
 
 var ProfesionalSchema = new Schema({
 

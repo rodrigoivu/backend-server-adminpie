@@ -10,7 +10,7 @@ var estadosValidos = {
 
 var PosHora = new Schema ({ 
     pos: Number
-});
+},{ _id : false });
 
 var ReservaSchema = new Schema({
 

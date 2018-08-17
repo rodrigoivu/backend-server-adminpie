@@ -7,7 +7,7 @@ var NgbDate = new Schema({
   day: Number,
   month: Number,
   year: Number
-});
+},{ _id : false });
 
 var BloqueoSchema = new Schema({
 
