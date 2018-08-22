@@ -118,7 +118,7 @@ function buscaProfesional(req,res){
 	
 	Profesional.findOne({'user': usetId}, (err, profesionalFound) => {
 		if(err){
-			res.status(500).send({message: 'Error al borrar profesional'});
+			res.status(500).send({message: 'Error al buscar profesional'});
 		}else{
 			res.status(200).send({profesional: profesionalFound});
 		}
@@ -133,7 +133,7 @@ function deleteProfesional(req,res){
 	var userId = req.params.id; // éste parámetro se pone en el url despues de /
 	Profesional.findOneAndRemove({user: userId}, (err, profesionalRemoved) => {
 		if(err){
-			res.status(500).send({message: 'Error al buscar profesional'});
+			res.status(500).send({message: 'Error al borrar profesional'});
 		}else{
 			if(!profesionalRemoved){
 				res.status(400).send({message: 'Este usuario no tine perfil de Profesional'});
