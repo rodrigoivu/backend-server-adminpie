@@ -12,7 +12,7 @@ var md_auth = require('../middlewares/authenticated');
 //FALTA PONER LAS AUTORIZACIONES !!!!!	
 
  api.post('/crear-paciente', PacienteController.savePaciente);
- // api.put('/update-paciente/:id', PacienteController.updateProfesional);
+ api.put('/update-paciente/:id', PacienteController.updatePaciente);
  api.get('/pacientes', PacienteController.listPacientes);
  // api.delete('/remove-paciente/:id', PacienteController.deleteProfesional);
  api.put('/upload-pdf-paciente/:id/:titulo/:profesionalProfesion',[md_auth.ensureAuth, md_upload],PacienteController.uploadFilePdf);

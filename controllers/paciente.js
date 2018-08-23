@@ -34,6 +34,32 @@ function savePaciente(req,res){
 }
 
 //================================================
+// ACTUALIZAR UN PACIENTE
+//================================================
+
+function updatePaciente(req,res){
+	
+	var pacienteId = req.params.id; // éste parámetro se pone en el url despues de OJO se busca por el ID de Usuario No de Profesional
+	var params = req.body;      // éstos parámetros vienen del raw json(application/json)
+
+ 
+	Paciente.findByIdAndUpdate(pacienteId, params, { new: true }, (err, pacienteUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+		if(err){
+			res.status(500).send({message: 'Error al actualizar el paciente',
+								error: err	});
+		}else{
+			if(!pacienteUpdated){
+				res.status(404).send({
+					message: 'No encuentra el profesional asociado al Paciente Id',
+			    });
+			}else{
+				res.status(200).send({paciente: pacienteUpdated });
+			}
+		}
+	});
+}
+
+//================================================
 // MOSTRAR TODOS LOS PACIENTES
 //================================================
 function listPacientes(req,res){
@@ -261,6 +287,7 @@ function getFileDoc(req,res){
 
 module.exports = {
 	savePaciente,
+	updatePaciente,
 	listPacientes,
 	uploadFilePdf,
 	getFilePdf,

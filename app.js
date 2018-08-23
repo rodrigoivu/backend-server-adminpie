@@ -19,6 +19,7 @@ var general_routes = require('./routes/general');
 var kinesiologia_routes = require('./routes/kinesiologia');
 var psicologia_routes = require('./routes/psicologia');
 var terapeuta_routes = require('./routes/terapeuta');
+var pesquisa_routes = require('./routes/pesquisa');
 
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -48,5 +49,6 @@ app.use('/api', general_routes);
 app.use('/api', kinesiologia_routes);
 app.use('/api', psicologia_routes);
 app.use('/api', terapeuta_routes);
+app.use('/api', pesquisa_routes);
 
 module.exports = app;
