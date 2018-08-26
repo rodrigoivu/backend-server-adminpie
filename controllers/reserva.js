@@ -41,10 +41,11 @@ function listReservas(req,res){
 	desde= Number(desde);
 
 	Reserva.find({})
-	   .populate('paciente', 'name')
+	   .populate('paciente', 'name rut fijo celular email')
 	   .populate('user', 'name')
 	   .skip(desde)
-	   .limit(10)	
+	   .limit(10)
+	   .sort([['fecha', -1]])	
 	   .exec(
 	   		(err, reservas) => {
 	   			if (err){
@@ -93,9 +94,30 @@ function listReservasPorFechaUsuario(req,res){
 	   	);
 }
 
+//================================================
+// ELIMINAR RESERVA
+//================================================
+
+function deleteReserva(req,res){
+	var reservaId = req.params.id; // éste parámetro se pone en el url despues de /
+	Reserva.findByIdAndRemove(reservaId, (err, reservaRemoved) => {
+		if(err){
+			res.status(500).send({message: 'Error al borrar reserva'});
+		}else{
+			if(!reservaRemoved){
+				res.status(404).send({message: 'No existe reserva con ese id'});
+			}else{
+				res.status(200).send({reserva: reservaRemoved});
+			}
+		}
+	});
+}
+
+
 module.exports = {
 	saveReserva,
 	listReservas,
-	listReservasPorFechaUsuario
+	listReservasPorFechaUsuario,
+	deleteReserva
 	
 };
