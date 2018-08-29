@@ -159,17 +159,7 @@ function incorporaMenuPesquisa(){
         submenu: [                                                        // submenus like single menu config
                 {
                     path: '/pages/postulacion',
-                    title: 'Postulación',
-                    icon: '',
-                    class: '',
-                    label: '',
-                    labelClass: '',
-                    extralink: false,
-                    submenu: []
-                },
-                {
-                    path: '/pages/admision',
-                    title: 'Admisión',
+                    title: 'Pesquisa',
                     icon: '',
                     class: '',
                     label: '',
@@ -177,6 +167,17 @@ function incorporaMenuPesquisa(){
                     extralink: false,
                     submenu: []
                 }
+                // ,
+                // {
+                //     path: '/pages/admision',
+                //     title: 'Admisión',
+                //     icon: '',
+                //     class: '',
+                //     label: '',
+                //     labelClass: '',
+                //     extralink: false,
+                //     submenu: []
+                // }
             ]
         }
     );

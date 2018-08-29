@@ -109,8 +109,30 @@ function pacienteTerapeuta(req,res){
 	   	);
 }
 
+function listaFichas(req,res){
+
+Terapeuta.find({},'-_id fecha')
+	   .sort([['fecha', -1]])
+	   .exec(
+	   		(err, terapeuta) => {
+	   				
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando fichas de Terapeuta'});
+
+	   			}else{
+	   				Terapeuta.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								fechas: terapeuta,
+								total: conteo
+						});
+	   				 });
+	   			}
+	   		});
+}
+
 module.exports = {
 	saveTerapeuta,
 	updateTerapeuta,
-	pacienteTerapeuta
+	pacienteTerapeuta,
+	listaFichas
 };

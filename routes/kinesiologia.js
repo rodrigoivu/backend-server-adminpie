@@ -11,6 +11,7 @@ var md_auth = require('../middlewares/authenticated');
  api.post('/crear-kinesiologia', KinesiologiaController.saveKinesiologia);
  api.put('/update-kinesiologia/:id/:fecha', KinesiologiaController.updateKinesiologia);
  api.get('/kinesiologia-paciente/:id', KinesiologiaController.pacienteKinesiologia);
+ api.get('/lista-fichas-kinesiologia', KinesiologiaController.listaFichas);
  
  
 module.exports = api;

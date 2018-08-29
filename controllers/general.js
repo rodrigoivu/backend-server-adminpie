@@ -108,8 +108,30 @@ function pacienteGeneral(req,res){
 	   	);
 }
 
+function listaFichas(req,res){
+
+General.find({},'-_id fecha')
+	   .sort([['fecha', -1]])
+	   .exec(
+	   		(err, general) => {
+	   				
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando fichas de General'});
+
+	   			}else{
+	   				General.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								fechas: general,
+								total: conteo
+						});
+	   				 });
+	   			}
+	   		});
+}
+
 module.exports = {
 	saveGeneral,
 	updateGeneral,
-	pacienteGeneral
+	pacienteGeneral,
+	listaFichas
 };

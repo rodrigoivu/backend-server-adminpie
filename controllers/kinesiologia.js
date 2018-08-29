@@ -108,8 +108,30 @@ function pacienteKinesiologia(req,res){
 	   	);
 }
 
+function listaFichas(req,res){
+
+Kinesiologia.find({},'-_id fecha')
+	   .sort([['fecha', -1]])
+	   .exec(
+	   		(err, kinesiologia) => {
+	   				
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando fichas de Kinesiologia'});
+
+	   			}else{
+	   				Kinesiologia.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								fechas: kinesiologia,
+								total: conteo
+						});
+	   				 });
+	   			}
+	   		});
+}
+
 module.exports = {
 	saveKinesiologia,
 	updateKinesiologia,
-	pacienteKinesiologia
+	pacienteKinesiologia,
+	listaFichas
 };

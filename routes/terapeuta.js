@@ -11,6 +11,7 @@ var md_auth = require('../middlewares/authenticated');
  api.post('/crear-terapeuta', TerapeutaController.saveTerapeuta);
  api.put('/update-terapeuta/:id/:fecha', TerapeutaController.updateTerapeuta);
  api.get('/terapeuta-paciente/:id', TerapeutaController.pacienteTerapeuta);
+ api.get('/lista-fichas-terapeuta', TerapeutaController.listaFichas);
  
  
 module.exports = api;

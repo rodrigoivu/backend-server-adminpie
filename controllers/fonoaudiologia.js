@@ -107,10 +107,32 @@ function pacienteFonoaudiologia(req,res){
 	   		});
 }
 
+function listaFichas(req,res){
+
+Fonoaudiologia.find({},'-_id fecha')
+	   .sort([['fecha', -1]])
+	   .exec(
+	   		(err, fonoaudiologia) => {
+	   				
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando fichas de Fonoaudiologia'});
+
+	   			}else{
+	   				Fonoaudiologia.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								fechas: fonoaudiologia,
+								total: conteo
+						});
+	   				 });
+	   			}
+	   		});
+
+}
 
 
 module.exports = {
 	saveFonoaudiologia,
 	updateFonoaudiologia,
-	pacienteFonoaudiologia
+	pacienteFonoaudiologia,
+	listaFichas
 };

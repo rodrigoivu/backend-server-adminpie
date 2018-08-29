@@ -11,6 +11,6 @@ var md_auth = require('../middlewares/authenticated');
  api.post('/crear-fonoaudiologia', FonoaudiologiaController.saveFonoaudiologia);
  api.put('/update-fonoaudiologia/:id/:fecha', FonoaudiologiaController.updateFonoaudiologia);
  api.get('/fonoaudiologia-paciente/:id', FonoaudiologiaController.pacienteFonoaudiologia);
- 
+ api.get('/lista-fichas-fonoaudiologia', FonoaudiologiaController.listaFichas);
  
 module.exports = api;

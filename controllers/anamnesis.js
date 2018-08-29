@@ -81,8 +81,31 @@ function pacienteAnamnesis(req,res){
 	   	);
 }
 
+function listaFichas(req,res){
+
+Anamnesis.find({},'-_id fecha')
+	   .sort([['fecha', -1]])
+	   .exec(
+	   		(err, anamnesis) => {
+	   				
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando fichas de Anamnesis'});
+
+	   			}else{
+	   				Anamnesis.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								fechas: anamnesis,
+								total: conteo
+						});
+	   				 });
+	   			}
+	   		});
+
+}
+
 module.exports = {
 	saveAnamnesis,
 	updateAnamnesis,
-	pacienteAnamnesis
+	pacienteAnamnesis,
+	listaFichas
 };

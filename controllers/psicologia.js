@@ -108,8 +108,30 @@ function pacientePsicologia(req,res){
 	   	);
 }
 
+function listaFichas(req,res){
+
+Psicologia.find({},'-_id fecha')
+	   .sort([['fecha', -1]])
+	   .exec(
+	   		(err, psicologia) => {
+	   				
+	   			if (err){
+	   				res.status(500).send({message: 'Error cargando fichas de Psicologia'});
+
+	   			}else{
+	   				Psicologia.count({}, (err,conteo) =>{
+	   					res.status(200).send({
+								fechas: psicologia,
+								total: conteo
+						});
+	   				 });
+	   			}
+	   		});
+}
+
 module.exports = {
 	savePsicologia,
 	updatePsicologia,
-	pacientePsicologia
+	pacientePsicologia,
+	listaFichas
 };

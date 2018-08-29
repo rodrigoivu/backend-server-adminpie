@@ -58,6 +58,30 @@ function loginUser(req,res){
 }
 
 //================================================
+// RECOVER
+//================================================
+function buscaPorMail(req,res){
+	var email = req.params.email;
+
+
+	User.findOne({email: email.toLowerCase()}, (err,user) => {
+		if(err){
+			res.status(500).send({message: 'Error en la petición'});
+		}else{
+			if(!user){
+				res.status(404).send({message: 'El usuario no existe'});
+			}else{
+				user.password=':)';
+				res.status(200).send({
+					id:	user._id,
+					user: user	
+				});
+				
+			}
+		}
+	});
+}
+//================================================
 // MOSTRAR TODOS LOS USUARIOS PAGINADOS
 //================================================
 function listUsers(req,res){
@@ -141,6 +165,34 @@ function saveUser(req,res){
 		res.status(400).send({message: 'Introduce la contraseña'});
 	}
 
+}
+
+//================================================
+// ACTUALIZAR CONTRASEÑA
+//================================================
+
+function updateUserPassword(req,res){
+	var userId = req.params.id; // éste parámetro se pone en el url despues de /
+	var params = req.body;      // éstos parámetros vienen del x-www-form-urlencoded
+	if(params.password){
+		// Encriptar contraseña 
+		params.password = bcrypt.hashSync(params.password,10);
+
+		User.findByIdAndUpdate(userId, params, { new: true }, (err, userUpdated) => { //el { new: true } es para que retorne el usuario con los datos actualisados no los datos anteriores antes de actualizarlo
+		if(err){
+			res.status(500).send({message: 'Error al actualizar la contraseña'});
+		}else{
+			if(!userUpdated){
+				res.status(404).send({message: 'No se ha podido cambiar la contraseña'});
+			}else{
+				userUpdated.password=':)'; //no está guardando este password es solo para no enviarlo
+				res.status(200).send({user: userUpdated});
+			}
+		}
+	});
+	}
+
+	
 }
 
 //================================================
@@ -283,7 +335,9 @@ module.exports = {
 	uploadImage,
 	getImageFile,
 	deleteUser,
-	renuevaToken
+	renuevaToken,
+	buscaPorMail,
+	updateUserPassword
 };
 
 // }
